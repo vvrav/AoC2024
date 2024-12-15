@@ -50,20 +50,17 @@ fn parse_input(input: &str) -> (Vec<Vec<char>>, (i32, i32)) {
         .for_each(|l| map.push(l.chars().collect()));
     let mut start = None;
     for (i, l) in (0..).zip(map.iter()) {
-        match l.iter().position(|c| *c == '^') {
-            Some(j) => {
-                start = Some((i, j as i32));
-                break;
-            }
-            None => (),
+        if let Some(j) = l.iter().position(|c| *c == '^') {
+            start = Some((i, j as i32));
+            break;
         }
     }
     let start = start.expect("Start position not found");
     (map, start)
 }
 
-fn run(map: &Vec<Vec<char>>, start: &(i32, i32)) -> HashSet<(i32, i32)> {
-    let mut pos = start.clone();
+fn run(map: &[Vec<char>], start: &(i32, i32)) -> HashSet<(i32, i32)> {
+    let mut pos = *start;
     let height = map.len() as i32;
     let width = map[0].len() as i32;
     let mut dir = Direction::North;
@@ -93,8 +90,8 @@ pub fn part_one(input: &str) -> Option<usize> {
     Some(count)
 }
 
-fn try_run(map: &Vec<Vec<char>>, start: &(i32, i32)) -> bool {
-    let mut pos = start.clone();
+fn try_run(map: &[Vec<char>], start: &(i32, i32)) -> bool {
+    let mut pos = *start;
     let height = map.len() as i32;
     let width = map[0].len() as i32;
     let mut dir = Direction::North;

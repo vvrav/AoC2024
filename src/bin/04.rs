@@ -1,7 +1,7 @@
 advent_of_code::solution!(4);
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let lines: Vec<&str> = input.split('\n').filter(|s| s.len() > 0).collect();
+    let lines: Vec<&str> = input.split('\n').filter(|s| !s.is_empty()).collect();
     let mut count: u32 = 0;
     let height = lines.len();
     let width = lines[0].len();
@@ -48,7 +48,7 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let lines: Vec<&str> = input.split('\n').filter(|s| s.len() > 0).collect();
+    let lines: Vec<&str> = input.split('\n').filter(|s| !s.is_empty()).collect();
     let height = lines.len();
     let width = lines[0].len();
 

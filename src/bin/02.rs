@@ -1,4 +1,4 @@
-use std::{cmp::min, num::ParseIntError};
+use std::num::ParseIntError;
 
 advent_of_code::solution!(2);
 
@@ -22,10 +22,10 @@ pub fn part_one(input: &str) -> Option<usize> {
         lines.iter().filter(|line| {
             let difs: Vec<_> = line.windows(2)
                 .map(|w| w[1]-w[0]).collect();
-            let isSafe: bool = difs.iter().all(|x| *x > 0 && *x < 4) ||
+            let is_safe: bool = difs.iter().all(|x| *x > 0 && *x < 4) ||
             difs.iter().all(|x| *x < 0 && *x > -4);
-            println!("{:?} is safe? {}", line, isSafe);
-            isSafe
+            println!("{:?} is safe? {}", line, is_safe);
+            is_safe
         }).count());
 
     nb_safe

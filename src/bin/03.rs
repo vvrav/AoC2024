@@ -14,7 +14,7 @@ fn cleanup(input: String) -> String {
         return p1.to_string()
     }
     let (_, p3) = p2.split_at(p.unwrap());
-    return cleanup(p1.to_string() + p3)
+    cleanup(p1.to_string() + p3)
 }
 
 fn get_mults(input: &str) -> Vec<u32> {

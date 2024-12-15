@@ -38,7 +38,7 @@ fn sorter(a: u32, b: u32, ordering: &HashMap<u32, Vec<u32>>) -> Ordering {
     Ordering::Equal
 }
 
-fn is_correct(update: &Vec<u32>, rules: &HashMap<u32, Vec<u32>>) -> bool {
+fn is_correct(update: &[u32], rules: &HashMap<u32, Vec<u32>>) -> bool {
     !update.iter().enumerate().any(|(i, v)| {
         if let Some(r) = rules.get(v) {
             r.iter()
@@ -51,12 +51,12 @@ fn is_correct(update: &Vec<u32>, rules: &HashMap<u32, Vec<u32>>) -> bool {
 
 pub fn part_one(input: &str) -> Option<u32> {
     let lines: Vec<_> = input.split('\n').collect();
-    let i = lines.iter().position(|l| l.len() == 0).unwrap();
+    let i = lines.iter().position(|l| l.is_empty()).unwrap();
     let (rules, rest) = lines.split_at(i);
     let rules: Vec<_> = rules.into();
     let updates: Vec<_> = rest
         .iter()
-        .filter(|l| l.len() > 0)
+        .filter(|l| !l.is_empty())
         .map(|s| {
             s.split(',')
                 .map(|x| x.parse::<u32>().unwrap())
@@ -77,12 +77,12 @@ pub fn part_one(input: &str) -> Option<u32> {
 
 pub fn part_two(input: &str) -> Option<u32> {
     let lines: Vec<_> = input.split('\n').collect();
-    let i = lines.iter().position(|l| l.len() == 0).unwrap();
+    let i = lines.iter().position(|l| l.is_empty()).unwrap();
     let (rules, rest) = lines.split_at(i);
     let rules: Vec<_> = rules.into();
     let updates: Vec<_> = rest
         .iter()
-        .filter(|l| l.len() > 0)
+        .filter(|l| !l.is_empty())
         .map(|s| {
             s.split(',')
                 .map(|x| x.parse::<u32>().unwrap())

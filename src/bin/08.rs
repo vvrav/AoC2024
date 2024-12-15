@@ -2,11 +2,13 @@ use std::collections::{HashMap, HashSet};
 
 advent_of_code::solution!(8);
 
-fn parse_input(input: &str) -> (HashMap<char, Vec<(i32, i32)>>, i32, i32) {
-    let lines: Vec<&str> = input.split('\n').filter(|l| l.len() > 0).collect();
+type Antennas = HashMap<char, Vec<(i32, i32)>>;
+
+fn parse_input(input: &str) -> (Antennas, i32, i32) {
+    let lines: Vec<&str> = input.split('\n').filter(|l| !l.is_empty()).collect();
     let height = lines.len() as i32;
     let width = if height > 0 { lines[0].len() as i32 } else { 0 };
-    let mut antennas: HashMap<char, Vec<(i32, i32)>> = HashMap::new();
+    let mut antennas: Antennas = HashMap::new();
     lines.iter().enumerate().for_each(|(i, l)| {
         l.chars().enumerate().for_each(|(j, c)| {
             if c.is_ascii_alphanumeric() {
@@ -19,11 +21,11 @@ fn parse_input(input: &str) -> (HashMap<char, Vec<(i32, i32)>>, i32, i32) {
             }
         });
     });
-    return (antennas, height, width);
+    (antennas, height, width)
 }
 
 fn get_antinodes1(
-    antennas: HashMap<char, Vec<(i32, i32)>>,
+    antennas: Antennas,
     height: i32,
     width: i32,
 ) -> HashSet<(i32, i32)> {
@@ -52,7 +54,7 @@ pub fn part_one(input: &str) -> Option<usize> {
 }
 
 fn get_antinodes2(
-    antennas: HashMap<char, Vec<(i32, i32)>>,
+    antennas: Antennas,
     height: i32,
     width: i32,
 ) -> HashSet<(i32, i32)> {
@@ -60,13 +62,13 @@ fn get_antinodes2(
     for (_, pos_list) in antennas {
         for (idx, pos1) in pos_list.iter().enumerate() {
             for pos2 in &pos_list[idx + 1..] {
-                let mut a = pos1.clone();
+                let mut a = *pos1;
                 while a.0 >= 0 && a.0 < height && a.1 >= 0 && a.1 < width {
                     antinodes.insert(a);
                     a.0 += pos1.0 - pos2.0;
                     a.1 += pos1.1 - pos2.1;
                 }
-                let mut a = pos1.clone();
+                let mut a = *pos1;
                 while a.0 >= 0 && a.0 < height && a.1 >= 0 && a.1 < width {
                     antinodes.insert(a);
                     a.0 -= pos1.0 - pos2.0;
