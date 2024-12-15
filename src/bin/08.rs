@@ -24,11 +24,7 @@ fn parse_input(input: &str) -> (Antennas, i32, i32) {
     (antennas, height, width)
 }
 
-fn get_antinodes1(
-    antennas: Antennas,
-    height: i32,
-    width: i32,
-) -> HashSet<(i32, i32)> {
+fn get_antinodes1(antennas: Antennas, height: i32, width: i32) -> HashSet<(i32, i32)> {
     let mut antinodes: HashSet<(i32, i32)> = HashSet::new();
     for (_, pos_list) in antennas {
         for (idx, pos1) in pos_list.iter().enumerate() {
@@ -53,11 +49,7 @@ pub fn part_one(input: &str) -> Option<usize> {
     Some(antinodes.len())
 }
 
-fn get_antinodes2(
-    antennas: Antennas,
-    height: i32,
-    width: i32,
-) -> HashSet<(i32, i32)> {
+fn get_antinodes2(antennas: Antennas, height: i32, width: i32) -> HashSet<(i32, i32)> {
     let mut antinodes: HashSet<(i32, i32)> = HashSet::new();
     for (_, pos_list) in antennas {
         for (idx, pos1) in pos_list.iter().enumerate() {

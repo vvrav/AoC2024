@@ -27,12 +27,14 @@ pub fn part_two(input: &str) -> Option<u32> {
     let (mut a, mut b) = lists_of_input(input)?;
     a.sort();
     b.sort();
-    let m: HashMap<u32, u32> = b.chunk_by(|a, b| a == b)
-        .map(|e| (e[0], e.len() as u32)).collect();
+    let m: HashMap<u32, u32> = b
+        .chunk_by(|a, b| a == b)
+        .map(|e| (e[0], e.len() as u32))
+        .collect();
 
-    let res = a.iter().fold(0u32, |acc, xa|
-        acc + m.get(xa).unwrap_or(&0) * *xa
-    );
+    let res = a
+        .iter()
+        .fold(0u32, |acc, xa| acc + m.get(xa).unwrap_or(&0) * *xa);
     Some(res)
 }
 

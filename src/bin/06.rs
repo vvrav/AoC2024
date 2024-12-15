@@ -102,7 +102,7 @@ fn try_run(map: &[Vec<char>], start: &(i32, i32)) -> bool {
         let d = dir.coords();
         let n = (pos.0 + d.0, pos.1 + d.1);
         if n.0 < 0 || n.0 >= height || n.1 < 0 || n.1 >= width {
-            return false
+            return false;
         }
         if map[n.0 as usize][n.1 as usize] == '#' {
             dir = dir.turn();
@@ -110,7 +110,7 @@ fn try_run(map: &[Vec<char>], start: &(i32, i32)) -> bool {
             pos = n;
         }
         if !visited.insert((pos, dir)) {
-            return true
+            return true;
         }
     }
 }
@@ -139,9 +139,18 @@ mod tests {
     fn test_parse_input() {
         let input = "..#\n#.#\n#^.\n";
         let res = parse_input(input);
-        assert_eq!(res, (vec![vec!['.','.','#'], vec!['#', '.','#'], vec!['#', '^', '.']], (2,1)));
+        assert_eq!(
+            res,
+            (
+                vec![
+                    vec!['.', '.', '#'],
+                    vec!['#', '.', '#'],
+                    vec!['#', '^', '.']
+                ],
+                (2, 1)
+            )
+        );
     }
-
 
     #[test]
     fn test_part_one() {

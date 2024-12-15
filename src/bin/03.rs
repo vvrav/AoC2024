@@ -2,16 +2,15 @@ use regex::Regex;
 
 advent_of_code::solution!(3);
 
-
 fn cleanup(input: String) -> String {
     let p = input.find("don't()");
     if p.is_none() {
-        return input
+        return input;
     }
     let (p1, p2) = input.split_at(p.unwrap());
     let p = p2.find("do()");
     if p.is_none() {
-        return p1.to_string()
+        return p1.to_string();
     }
     let (_, p3) = p2.split_at(p.unwrap());
     cleanup(p1.to_string() + p3)
@@ -53,14 +52,16 @@ mod tests {
 
     #[test]
     fn test_cleanup() {
-        let result = cleanup(advent_of_code::template::read_file_part("examples", DAY, 2).to_string());
+        let result =
+            cleanup(advent_of_code::template::read_file_part("examples", DAY, 2).to_string());
         assert_eq!(result, "xmul(2,4)&mul[3,7]!^do()?mul(8,5))".to_string());
     }
 
-
     #[test]
     fn test_part_two() {
-        let result = part_two(&advent_of_code::template::read_file_part("examples", DAY, 2));
+        let result = part_two(&advent_of_code::template::read_file_part(
+            "examples", DAY, 2,
+        ));
         assert_eq!(result, Some(48));
     }
 }

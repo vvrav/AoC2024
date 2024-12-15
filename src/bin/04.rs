@@ -110,7 +110,6 @@ pub fn part_two(input: &str) -> Option<u32> {
     Some(c)
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
