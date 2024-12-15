@@ -62,7 +62,7 @@ fn parse_input(input: &str) -> (Vec<Vec<char>>, (i32, i32)) {
     (map, start)
 }
 
-fn run(map: &Vec<Vec<char>>, start: &(i32, i32)) -> usize {
+fn run(map: &Vec<Vec<char>>, start: &(i32, i32)) -> HashSet<(i32, i32)> {
     let mut pos = start.clone();
     let height = map.len() as i32;
     let width = map[0].len() as i32;
@@ -84,12 +84,12 @@ fn run(map: &Vec<Vec<char>>, start: &(i32, i32)) -> usize {
         visited.insert(pos);
     }
 
-    visited.len()
+    visited
 }
 
 pub fn part_one(input: &str) -> Option<usize> {
     let (map, start) = parse_input(input);
-    let count = run(&map, &start);
+    let count = run(&map, &start).len();
     Some(count)
 }
 
@@ -121,13 +121,13 @@ fn try_run(map: &Vec<Vec<char>>, start: &(i32, i32)) -> bool {
 pub fn part_two(input: &str) -> Option<u32> {
     let (map, start) = parse_input(input);
     let mut count = 0;
-    for i in 0..map.len() {
-        for j in 0..map[0].len() {
-            let mut tmap = map.clone();
-            tmap[i][j] = '#';
-            if try_run(&tmap, &start) {
-                count += 1;
-            }
+
+    let to_test = run(&map, &start);
+    for (i, j) in to_test {
+        let mut tmap = map.clone();
+        tmap[i as usize][j as usize] = '#';
+        if try_run(&tmap, &start) {
+            count += 1;
         }
     }
 
